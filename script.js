@@ -1,4 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Splash Screen Logic
+    const splashScreen = document.getElementById('splash-screen');
+    
+    // Remove splash function
+    let splashRemoved = false;
+    const removeSplash = () => {
+        if (splashRemoved) return;
+        splashRemoved = true;
+        
+        if (splashScreen) {
+            splashScreen.classList.add('fade-out');
+            setTimeout(() => {
+                splashScreen.remove();
+                document.body.classList.remove('splash-active');
+            }, 800); // Wait for fade-out transition
+        } else {
+            document.body.classList.remove('splash-active');
+        }
+    };
+
+    // Remove splash when window fully loads, with a slight delay for the animation
+    window.addEventListener('load', () => {
+        setTimeout(removeSplash, 1500);
+    });
+
+    // Fallback in case load takes too long
+    setTimeout(removeSplash, 3000);
+
     // Scroll Animation Observer
     const observerOptions = {
         root: null,
